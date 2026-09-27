@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.trupermax.cineverse.data.sampleMovies
 import com.trupermax.cineverse.model.Movie
+import com.trupermax.cineverse.ui.components.MovieCard
 
 @Composable
 fun HomeScreen() {
@@ -104,6 +105,13 @@ fun HomeScreen() {
                 movie = sampleMovies.first(),
                 onDetailsClick = {
                     println("Ver detalles de ${sampleMovies.first().title}")
+                }
+            )
+
+            MovieCard(
+                movie = sampleMovies.first(),
+                onClick = {
+                    println("Seleccionaste ${sampleMovies.first().title}")
                 }
             )
         }
