@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Search
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.trupermax.cineverse.data.sampleMovies
+import com.trupermax.cineverse.data.trendingMovies
 import com.trupermax.cineverse.model.Movie
 import com.trupermax.cineverse.ui.components.MovieCard
 
@@ -50,6 +53,7 @@ fun HomeScreen() {
         Column(
             modifier = Modifier
                 .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -117,6 +121,13 @@ fun HomeScreen() {
                     println("Seleccionaste ${movie.title}")
                 }
             )
+
+            MoviesSection(
+                title = "Tendencias esta semana",
+                movies = trendingMovies
+            ) { movie ->
+                println("Tendencia seleccionada: ${movie.title}")
+            }
         }
     }
 }

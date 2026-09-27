@@ -41,3 +41,5 @@ val sampleMovies = listOf(
         )
     )
 )
+
+val trendingMovies = sampleMovies.reversed()
