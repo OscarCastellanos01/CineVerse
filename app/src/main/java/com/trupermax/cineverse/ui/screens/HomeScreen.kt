@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Movie
@@ -108,10 +110,11 @@ fun HomeScreen() {
                 }
             )
 
-            MovieCard(
-                movie = sampleMovies.first(),
-                onClick = {
-                    println("Seleccionaste ${sampleMovies.first().title}")
+            MoviesSection(
+                title = "Películas populares",
+                movies = sampleMovies,
+                onMovieClick = { movie ->
+                    println("Seleccionaste ${movie.title}")
                 }
             )
         }
@@ -190,6 +193,50 @@ fun FeaturedMovieCard(
                         text = "Ver detalles"
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun MoviesSection(
+    title: String,
+    movies: List<Movie>,
+    onMovieClick: (Movie) -> Unit
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Text(
+                text = "Ver todo",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(movies) { movie ->
+                MovieCard(
+                    movie = movie,
+                    onClick = {
+                        onMovieClick(movie)
+                    }
+                )
             }
         }
     }

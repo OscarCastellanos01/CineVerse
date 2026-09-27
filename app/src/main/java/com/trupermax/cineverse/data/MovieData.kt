@@ -21,7 +21,7 @@ val sampleMovies = listOf(
         title = "Inception",
         releaseYear = 2010,
         overview = "Un especialista en infiltrarse en los sueños recibe la misión de implantar una idea en la mente de una persona.",
-        posterResId = 0,
+        posterResId = R.drawable.poster_inception,
         genres = listOf(
             "Ciencia ficción",
             "Acción",
@@ -33,7 +33,7 @@ val sampleMovies = listOf(
         title = "The Dark Knight",
         releaseYear = 2008,
         overview = "Batman enfrenta a un criminal que amenaza con sumir a Ciudad Gótica en el caos.",
-        posterResId = 0,
+        posterResId = R.drawable.poster_the_dark_knight,
         genres = listOf(
             "Acción",
             "Crimen",
