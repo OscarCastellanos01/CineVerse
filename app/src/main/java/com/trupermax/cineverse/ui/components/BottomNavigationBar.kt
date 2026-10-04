@@ -12,40 +12,28 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation3.runtime.NavKey
 
 data class BottomNavItem(
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val route: NavKey
 )
 
 @Composable
 fun BottomNavigationBar(
-    selectedIndex: Int,
-    onItemSelected: (Int) -> Unit
+    items: List<BottomNavItem>,
+    currentRoute: NavKey,
+    onItemSelected: (NavKey) -> Unit
 ) {
-    val items = listOf(
-        BottomNavItem(
-            title = "Inicio",
-            icon = Icons.Default.Home
-        ),
-        BottomNavItem(
-            title = "Buscar",
-            icon = Icons.Default.Search
-        ),
-        BottomNavItem(
-            title = "Favoritos",
-            icon = Icons.Default.Favorite
-        )
-    )
-
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface
     ) {
-        items.forEachIndexed { index, item ->
+        items.forEach { item ->
             NavigationBarItem(
-                selected = selectedIndex == index,
+                selected = currentRoute == item.route,
                 onClick = {
-                    onItemSelected(index)
+                    onItemSelected(item.route)
                 },
                 icon = {
                     Icon(

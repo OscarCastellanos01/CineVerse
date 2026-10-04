@@ -51,100 +51,83 @@ import com.trupermax.cineverse.ui.components.MovieCard
 
 @Composable
 fun HomeScreen() {
-    var selectedIndex by remember {
-        mutableIntStateOf(0)
-    }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
-        bottomBar = {
-            BottomNavigationBar(
-                selectedIndex = selectedIndex,
-                onItemSelected = { index ->
-                    selectedIndex = index
-                }
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 20.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(9.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(9.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Movie,
-                        contentDescription = null,
-                        modifier = Modifier.size(28.dp),
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                    Text(
-                        text = "CineVerse",
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-
-                IconButton(
-                    onClick = {
-                        println("Boton de busqueda presionado")
-                    },
-                    modifier = Modifier.offset(x = 8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Buscar peliculas",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
+                Icon(
+                    imageVector = Icons.Default.Movie,
+                    contentDescription = null,
+                    modifier = Modifier.size(28.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = "CineVerse",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
 
-            Text(
-                text = "Hola, Oscar \uD83D\uDC4B",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-
-            Text(
-                text = "¿Qué historia quieres descubrir hoy?",
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-
-            FeaturedMovieCard(
-                movie = sampleMovies.first(),
-                onDetailsClick = {
-                    println("Ver detalles de ${sampleMovies.first().title}")
-                }
-            )
-
-            MoviesSection(
-                title = "Películas populares",
-                movies = sampleMovies,
-                onMovieClick = { movie ->
-                    println("Seleccionaste ${movie.title}")
-                }
-            )
-
-            MoviesSection(
-                title = "Tendencias esta semana",
-                movies = trendingMovies
-            ) { movie ->
-                println("Tendencia seleccionada: ${movie.title}")
+            IconButton(
+                onClick = {
+                    println("Boton de busqueda presionado")
+                },
+                modifier = Modifier.offset(x = 8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Buscar peliculas",
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
             }
+        }
+
+        Text(
+            text = "Hola, Oscar \uD83D\uDC4B",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Text(
+            text = "¿Qué historia quieres descubrir hoy?",
+            fontSize = 14.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        FeaturedMovieCard(
+            movie = sampleMovies.first(),
+            onDetailsClick = {
+                println("Ver detalles de ${sampleMovies.first().title}")
+            }
+        )
+
+        MoviesSection(
+            title = "Películas populares",
+            movies = sampleMovies,
+            onMovieClick = { movie ->
+                println("Seleccionaste ${movie.title}")
+            }
+        )
+
+        MoviesSection(
+            title = "Tendencias esta semana",
+            movies = trendingMovies
+        ) { movie ->
+            println("Tendencia seleccionada: ${movie.title}")
         }
     }
 }

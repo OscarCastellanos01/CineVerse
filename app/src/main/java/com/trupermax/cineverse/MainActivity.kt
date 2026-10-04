@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.trupermax.cineverse.ui.screens.HomeScreen
+import com.trupermax.cineverse.navigation.CineVerseNavigation
 import com.trupermax.cineverse.ui.theme.CineVerseTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             CineVerseTheme {
-                HomeScreen()
+                CineVerseNavigation()
             }
         }
     }
