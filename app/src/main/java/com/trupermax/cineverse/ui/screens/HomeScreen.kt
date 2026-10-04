@@ -30,6 +30,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -42,13 +46,26 @@ import androidx.compose.ui.unit.sp
 import com.trupermax.cineverse.data.sampleMovies
 import com.trupermax.cineverse.data.trendingMovies
 import com.trupermax.cineverse.model.Movie
+import com.trupermax.cineverse.ui.components.BottomNavigationBar
 import com.trupermax.cineverse.ui.components.MovieCard
 
 @Composable
 fun HomeScreen() {
+    var selectedIndex by remember {
+        mutableIntStateOf(0)
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            BottomNavigationBar(
+                selectedIndex = selectedIndex,
+                onItemSelected = { index ->
+                    selectedIndex = index
+                }
+            )
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
