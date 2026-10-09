@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
@@ -37,6 +39,10 @@ import com.trupermax.cineverse.ui.screens.SearchScreen
 
 @Composable
 fun CineVerseNavigation() {
+    val favoriteMovieIds = remember {
+        mutableStateListOf<Int>()
+    }
+
     val bottomNavItems = listOf(
         BottomNavItem(
             title = "Inicio",
@@ -138,12 +144,12 @@ fun CineVerseNavigation() {
                     initialOffsetX = { fullWidth ->
                         -fullWidth
                     },
-                    animationSpec = tween(300)
+                    animationSpec = tween(330)
                 ) togetherWith slideOutHorizontally(
                     targetOffsetX = { fullWidth ->
                         fullWidth
                     },
-                    animationSpec = tween(300)
+                    animationSpec = tween(330)
                 )
             },
             predictivePopTransitionSpec = { _ ->
@@ -180,7 +186,18 @@ fun CineVerseNavigation() {
 
                 entry<MovieDetailsRoute> { route ->
                     MovieDetailScreen(
-                        movieId = route.movieId
+                        movieId = route.movieId,
+                        isFavorite = route.movieId in favoriteMovieIds,
+                        onFavoriteClick = {
+                            if (route.movieId in favoriteMovieIds) {
+                                favoriteMovieIds.remove(route.movieId)
+                            } else {
+                                favoriteMovieIds.add(route.movieId)
+                            }
+                        },
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        }
                     )
                 }
             }
