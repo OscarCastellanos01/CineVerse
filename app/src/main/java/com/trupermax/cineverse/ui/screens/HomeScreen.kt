@@ -27,13 +27,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -46,11 +41,12 @@ import androidx.compose.ui.unit.sp
 import com.trupermax.cineverse.data.sampleMovies
 import com.trupermax.cineverse.data.trendingMovies
 import com.trupermax.cineverse.model.Movie
-import com.trupermax.cineverse.ui.components.BottomNavigationBar
 import com.trupermax.cineverse.ui.components.MovieCard
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onMovieClick: (Movie) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,6 +54,8 @@ fun HomeScreen() {
             .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        val featuredMovie = sampleMovies.first()
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -109,26 +107,23 @@ fun HomeScreen() {
         )
 
         FeaturedMovieCard(
-            movie = sampleMovies.first(),
+            movie = featuredMovie,
             onDetailsClick = {
-                println("Ver detalles de ${sampleMovies.first().title}")
+                onMovieClick(featuredMovie)
             }
         )
 
         MoviesSection(
             title = "Películas populares",
             movies = sampleMovies,
-            onMovieClick = { movie ->
-                println("Seleccionaste ${movie.title}")
-            }
+            onMovieClick = onMovieClick
         )
 
         MoviesSection(
             title = "Tendencias esta semana",
-            movies = trendingMovies
-        ) { movie ->
-            println("Tendencia seleccionada: ${movie.title}")
-        }
+            movies = trendingMovies,
+            onMovieClick = onMovieClick
+        )
     }
 }
 
